@@ -1,4 +1,5 @@
 mod envelope;
+mod filter;
 mod input;
 mod interface;
 mod query_arguments;
@@ -6,6 +7,7 @@ mod query_arguments;
 pub mod prelude;
 
 pub use envelope::ProtoBufEnvelope;
+pub use filter::*;
 pub use input::*;
 pub use interface::{ExternalInterface, ProtoBufInterface};
 use prisma_models::ModelRef;
@@ -15,7 +17,7 @@ pub mod prisma {
     include!(concat!(env!("OUT_DIR"), "/prisma.rs"));
 }
 
-use crate::{Error as CrateError, PrismaValue};
+use crate::Error as CrateError;
 use prelude::*;
 
 impl RpcResponse {
@@ -67,34 +69,16 @@ impl SelectedField {
     }
 }
 
-impl Node {
-    pub fn get(&self, index: usize) -> Option<&PrismaValue> {
-        self.values
-            .get(index)
-            .and_then(|ref vc| vc.prisma_value.as_ref())
-    }
-
-    pub fn len(&self) -> usize {
-        self.values.len()
-    }
-}
-
-impl ValueContainer {
-    pub fn is_null_value(&self) -> bool {
-        match self.prisma_value {
-            Some(PrismaValue::Null(_)) => true,
-            _ => false,
-        }
-    }
-}
-
 impl RelationFilter {
     pub fn as_sub_select(self, model: ModelRef) -> ConditionTree {
+        /*
         Self::in_statement_for_relation_condition(
             Column::from((model.db_name(), self.field.field.as_ref())),
             self.condition(),
             self.relation_filter_sub_select(model),
         )
+         */
+        unimplemented!()
     }
 
     fn in_statement_for_relation_condition(
@@ -102,6 +86,7 @@ impl RelationFilter {
         condition: relation_filter::Condition,
         sub_select: Select,
     ) -> ConditionTree {
+        /*
         match condition {
             relation_filter::Condition::EveryRelatedNode => column.not_in_selection(sub_select),
             relation_filter::Condition::NoRelatedNode => column.not_in_selection(sub_select),
@@ -109,9 +94,13 @@ impl RelationFilter {
             relation_filter::Condition::ToOneRelatedNode => column.in_selection(sub_select),
         }
         .into()
+         */
+        unimplemented!()
     }
 
     fn relation_filter_sub_select(self, model: ModelRef) -> Select {
+        unimplemented!()
+        /*
         let relation_field = model
             .fields()
             .find_from_relation_fields(&self.field.field)
@@ -164,5 +153,6 @@ impl RelationFilter {
                     .so_that(filter.invert_if(invert_condition_of_subselect))
             }
         }
+         */
     }
 }

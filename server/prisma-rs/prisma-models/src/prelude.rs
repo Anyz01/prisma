@@ -1,6 +1,7 @@
 pub use super::{
-    FieldTemplate, Fields, Model, ModelRef, ModelTemplate, ModelWeakRef, OnDelete, Project,
-    ProjectRef, ProjectTemplate, ProjectWeakRef, Relation, RelationField,
-    RelationLinkManifestation, RelationRef, RelationSide, RelationTemplate, RelationWeakRef,
-    ScalarField, Schema, SchemaRef, SchemaTemplate, SchemaWeakRef, TypeIdentifier,
+    FieldTemplate, Fields, Filter, GraphqlId, Model, ModelRef, ModelTemplate, ModelWeakRef,
+    OnDelete, PrismaValue, Project, ProjectRef, ProjectTemplate, ProjectWeakRef, Relation,
+    RelationCondition, RelationField, RelationFilter, RelationLinkManifestation, RelationRef,
+    RelationSide, RelationTemplate, RelationWeakRef, ScalarCondition, ScalarField, ScalarFilter,
+    ScalarListCondition, Schema, SchemaRef, SchemaTemplate, SchemaWeakRef, TypeIdentifier,
 };
